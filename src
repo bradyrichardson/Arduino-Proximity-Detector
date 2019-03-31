@@ -1,0 +1,60 @@
+#include "SR04.h"
+#define TRIG_PIN 12
+#define ECHO_PIN 11
+#define NUM_LEDS 5
+const int LED_ONE = 2;
+const int LED_TWO = 3;
+const int LED_THREE = 4;
+const int LED_FOUR = 5;
+const int LED_FIVE = 6;
+SR04 sr04 = SR04(ECHO_PIN, TRIG_PIN);
+long a;
+
+int ledArray[NUM_LEDS] = {LED_ONE, LED_TWO, LED_THREE, LED_FOUR, LED_FIVE};
+
+void setup() {
+  Serial.begin(9600);
+  delay(1000);
+  for (int i = 0; i < NUM_LEDS; ++i) {
+    pinMode(ledArray[i], OUTPUT);
+  }
+  for (int i = 0; i < NUM_LEDS; ++i) {
+    digitalWrite(ledArray[i], LOW);
+  }
+}
+void loop() {
+  a = sr04.Distance();
+   Serial.println(a);
+   //Serial.println("cm");
+   delay(1000);
+   if (a < 10) {
+     digitalWrite(LED_ONE, HIGH);
+   }
+   else {
+    digitalWrite(LED_ONE, LOW);
+   }
+   if (a < 20) {
+     digitalWrite(LED_TWO, HIGH);
+   }
+   else {
+    digitalWrite(LED_TWO, LOW);
+   }
+   if (a < 30) {
+     digitalWrite(LED_THREE, HIGH);
+   }
+   else {
+    digitalWrite(LED_THREE, LOW);
+   }
+   if (a < 40) {
+     digitalWrite(LED_FOUR, HIGH);
+   }
+   else {
+    digitalWrite(LED_FOUR, LOW);
+   }
+   if (a < 50) {
+     digitalWrite(LED_FIVE, HIGH);
+   }
+   else {
+    digitalWrite(LED_FIVE, LOW);
+   }
+}
